@@ -51,4 +51,4 @@ jobs:
 
     - name: Deploy to Server
       run: |
-        rsync -avz -e "ssh "dist/ ${{ vars.SSH_DEPLOY_USER }}@${{ vars.SSH_DEPLOY_IP }}:/var/www/portfolio/bl-studio
+        rsync -avz -e "ssh " ${{ github.workspace }}/dist/ ${{ vars.SSH_DEPLOY_USER }}@${{ vars.SSH_DEPLOY_IP }}:/var/www/portfolio/bl-studio
