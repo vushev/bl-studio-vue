@@ -25,8 +25,14 @@ jobs:
       run: npm run test
 
     - name: Build
-      run: npm run build
+      run: |
+        echo "Setting up environment variables"
+        
+        echo "VUE_APP_API_ROOT=${{ vars.API_ROOT }}" >> .env
+        echo "VUE_APP_ROOT=${{ vars.APP_ROOT }}" >> .env
+        cat .env
+        npm run build
 
     - name: Deploy to Server
       run: |
-        rsync -avz -e "ssh -i ${{ secrets.SSH_PRIVATE_KEY }}" dist/ ${{ secrets.SSH_DEPLOY_USER }}@${{ secrets.SSH_DEPLOY_IP }}:/path/to/destination/
+        rsync -avz -e "ssh -i ${{ secrets.SSH_PRIVATE_KEY }}" dist/ ${{ vars.SSH_DEPLOY_USER }}@${{ vars.SSH_DEPLOY_IP }}:/var/www/portfolio/bl-studio
