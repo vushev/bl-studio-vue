@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 const http = axios.create({
-    baseURL: process.env.VUE_APP_API_ROOT,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+  baseURL: process.env.VUE_APP_API_ROOT,
+  headers: {
+    "Content-Type": "application/json",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+  },
 });
 
 http.interceptors.request.use(
