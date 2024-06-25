@@ -1,0 +1,32 @@
+name: Vue.js CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm run test
+
+    - name: Build
+      run: npm run build
+
+    - name: Deploy to Server
+      run: |
+        rsync -avz -e "ssh -i ${{ secrets.SSH_PRIVATE_KEY }}" dist/ ${{ secrets.SSH_DEPLOY_USER }}@${{ secrets.SSH_DEPLOY_IP }}:/path/to/destination/
