@@ -8,7 +8,7 @@
           </h1>
         </div>
         <nav class="header__nav">
-
+{{ baseUrl }}-
           <!-- <router-link to="/">Home</router-link> -->
           <template v-if="isAuthenticated">
             <!-- | <router-link to="/users">Go to User List</router-link> | -->
@@ -40,7 +40,10 @@ export default {
     console.log('load header')
   },
   computed: {
-   ...mapGetters(['isAuthenticated']),
+    ...mapGetters(['isAuthenticated']),
+    baseUrl() {
+      return this.$baseUrl;
+    }
   },
   methods: {
     logout() {

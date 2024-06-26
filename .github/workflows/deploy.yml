@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '20'
 
     - name: Install dependencies
       run: npm install
@@ -30,6 +30,7 @@ jobs:
         
         echo "VUE_APP_API_ROOT=${{ vars.API_ROOT }}" >> .env
         echo "VUE_APP_ROOT=${{ vars.APP_ROOT }}" >> .env
+        echo "VUE_APP_BASE_URL=${{ vars.API_URL }}" >> .
         cat .env
         npm run build
 
