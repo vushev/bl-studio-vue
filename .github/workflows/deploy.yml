@@ -30,7 +30,7 @@ jobs:
         
         echo "VUE_APP_API_ROOT=${{ vars.API_ROOT }}" >> .env
         echo "VUE_APP_ROOT=${{ vars.APP_ROOT }}" >> .env
-        echo "VUE_APP_BASE_URL=${{ vars.API_URL }}" >> .
+        echo "VUE_APP_BASE_URL=${{ vars.API_URL }}" >> .env
         cat .env
         npm run build
 
