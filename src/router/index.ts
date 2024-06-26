@@ -46,7 +46,7 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../components/SignInAuth.vue')
   }
 ]
-
+console.log(process.env.VUE_APP_BASE_URL, "OBSERVER");
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
