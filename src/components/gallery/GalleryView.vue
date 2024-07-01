@@ -50,7 +50,7 @@ export default defineComponent({
 
     const getImageUrl = (path: string) => {
       if (path) {
-        return `${process.env.VUE_APP_API_ROOT}/${path}`;
+        return `${process.env.VUE_APP_ROOT}/${path}`;
       }
     }
     const showModal = (image: Image) => {
