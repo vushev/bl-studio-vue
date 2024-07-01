@@ -60,7 +60,7 @@ export default defineComponent({
     });
 
     const getImageUrl = (path: string) => {
-      return `${process.env.VUE_APP_API_ROOT}/${path}`;
+      return `${process.env.VUE_APP_ROOT}/${path}`;
     };
 
     const updateStatus = async (status: string) => {

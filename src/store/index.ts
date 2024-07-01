@@ -12,7 +12,7 @@ const store = createStore({
     clearToken(state) {
       state.token = null;
       localStorage.removeItem("token");
-    }
+    },
   },
   actions: {
     login({ commit }, token) {
@@ -22,7 +22,7 @@ const store = createStore({
     },
     logout({ commit }) {
       // Clear the token and set isAuthenticated to false
-      store.commit("clearToken");
+      commit("clearToken");
     },
   },
   getters: {
