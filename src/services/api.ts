@@ -41,7 +41,7 @@ http.interceptors.response.use(
       } else if ([401, 500].includes(err.response.status)) {
         if (err.response.data?.message === "jwt expired") {
           store.dispatch("logout");
-          window.location.href = "/";
+          window.location.href = "/login";
           return Promise.reject(err.response.data);
         }
       }

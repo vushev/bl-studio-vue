@@ -11,24 +11,24 @@
           <span v-else class="badge bg-secondary">Неизвестен статус</span>
         </p>
 
-        <div class="mb-3">
+        <div class="mb-3" v-if="!localStatus">
           <label for="status" class="form-label">Статус</label>
-          <select v-model="localStatus" @change="updateStatus(localStatus)" class="form-select">
+          <select v-model="localStatus" @change="updateStatus" class="form-select">
             <option value="">Избери статус</option>
             <option value="approved">Одобрена</option>
             <option value="rejected">Отказана</option>
             <option value="needs_work">Изисква работа</option>
           </select>
         </div>
-
-        <div v-if="image.status === 'needs_work' && !image.comments" class="mb-3">
+        {{ localStatus }}
+        <div v-if="localStatus === 'needs_work' && !showComments" class="mb-3">
           <label for="comments" class="form-label">Коментари</label>
           <textarea v-model="comments" class="form-control" rows="3"></textarea>
           <button @click.stop="saveComments" class="btn btn-primary mt-2">Запиши коментари</button>
         </div>
-        <div v-else-if="image.status === 'needs_work' && image.comments" class="mb-3">
+        <div v-else-if="localStatus === 'needs_work' && showComments" class="mb-3">
           <label for="comments" class="form-label">Коментари</label>
-          <p>{{ image.comments }}</p>
+          <p>{{ comments }}</p>
         </div>
 
       </div>
@@ -50,23 +50,27 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const showComments = ref<boolean>(!!props.image.comments || false);
     const comments = ref(props.image.comments || "");
-    const localStatus = computed({
-      get() {
-        return props.image.status;
-      },
-      set(value: string) {
-        updateStatus(value);
-      }
-    });
+    const localStatus = ref(props.image.status);
+    // const localStatus = computed({
+    //   get() {
+    //     console.log(['status', props.image.status])
+    //     return props.image.status;
+    //   },
+    //   set(value: string) {
+    //     props.image.status = value;
+    //     updateStatus(value);
+    //   }
+    // });
 
     const getImageUrl = (path: string) => {
       return `${process.env.VUE_APP_ROOT}/${path}`;
     };
 
-    const updateStatus = async (status: string) => {
+    const updateStatus = async () => {
       try {
-        await http.patch(`/album/image/${props.image.id}/status`, { status });
+        await http.patch(`/album/image/${props.image.id}/status`, { status: localStatus.value });
       } catch (error) {
         console.error('Failed to update image status', error);
       }
@@ -75,6 +79,7 @@ export default defineComponent({
     const saveComments = async () => {
       try {
         await http.patch(`/album/image/${props.image.id}/comments`, { comments: comments.value });
+        showComments.value = true;
       } catch (error) {
         console.error('Failed to update image comments', error);
       }
@@ -84,7 +89,7 @@ export default defineComponent({
       emit('open-modal', image);
     };
 
-    return { getImageUrl, updateStatus, saveComments, localStatus, comments, openModal };
+    return { getImageUrl, updateStatus, saveComments, localStatus, comments, openModal, showComments };
   }
 });
 </script>
