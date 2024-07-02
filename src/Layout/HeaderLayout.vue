@@ -8,7 +8,6 @@
           </h1>
         </div>
         <nav class="header__nav">
-{{ baseUrl }}-
           <!-- <router-link to="/">Home</router-link> -->
           <template v-if="isAuthenticated">
             <!-- | <router-link to="/users">Go to User List</router-link> | -->

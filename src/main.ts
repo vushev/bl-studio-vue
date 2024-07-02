@@ -14,5 +14,5 @@ app.config.globalProperties.$baseUrl = process.env.VUE_APP_BASE_URL;
 
 app.use(router);
 app.use(store);
-console.log(process.env.BASE_URL, "sadaasa");
+
 app.mount('#app');

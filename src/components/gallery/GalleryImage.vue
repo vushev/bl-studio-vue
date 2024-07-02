@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-4 mb-4">
-    <div class="card h-100 shadow-sm" @click="openModal(image)">
-      <img :src="getImageUrl(image.path)" class="card-img-top" :alt="image.name" />
+    <div class="card h-100 shadow-sm">
+      <img :src="getImageUrl(image.path)" class="card-img-top" :alt="image.name" @click="openModal(image)" />
       <div class="card-body">
         <h5 class="card-title">{{ image.name }} <small class="text-muted">version: {{ image.version }}</small></h5>
         <p class="card-text">
@@ -14,6 +14,7 @@
         <div class="mb-3">
           <label for="status" class="form-label">Статус</label>
           <select v-model="localStatus" @change="updateStatus(localStatus)" class="form-select">
+            <option value="">Избери статус</option>
             <option value="approved">Одобрена</option>
             <option value="rejected">Отказана</option>
             <option value="needs_work">Изисква работа</option>
@@ -29,7 +30,7 @@
           <label for="comments" class="form-label">Коментари</label>
           <p>{{ image.comments }}</p>
         </div>
-        
+
       </div>
     </div>
   </div>
