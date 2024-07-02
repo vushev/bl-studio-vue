@@ -4,7 +4,7 @@
       <div class="header__navbar">
         <div class="header__logo">
           <h1>
-            <router-link to="/">Logo</router-link>
+            <img src="img/logo.png" alt="logo">
           </h1>
         </div>
         <nav class="header__nav">
