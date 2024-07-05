@@ -1,33 +1,40 @@
 import { createStore } from "vuex";
+import http from "../services/api";
 
 const store = createStore({
   state: {
-    token: localStorage.getItem("token") || null,
+    token: null,
+    isAuthenticated: false,
   },
   mutations: {
-    setToken(state, token) {
-      state.token = token;
-      localStorage.setItem("token", token);
-    },
-    clearToken(state) {
-      state.token = null;
-      localStorage.removeItem("token");
+    setAuthenticated(state, status) {
+      state.isAuthenticated = status;
     },
   },
   actions: {
-    login({ commit }, token) {
-      // Set the token and isAuthenticated state
-      commit("setToken", token);
-      commit("setAuthenticated", true);
+    async login({ commit }, credentials) {
+      try {
+        const response = await http.post("/auth/signin", credentials);
+        if (response.status === 200) {
+          commit("setAuthenticated", true);
+        }
+      } catch (error) {
+        console.error("Failed to login", error);
+      }
     },
-    logout({ commit }) {
-      // Clear the token and set isAuthenticated to false
-      commit("clearToken");
+    async logout({ commit }) {
+      try {
+        const response = await http.post("/auth/signout");
+        if (response.status === 200) {
+          commit("setAuthenticated", false);
+        }
+      } catch (error) {
+        console.error("Failed to logout", error);
+      }
     },
   },
   getters: {
-    isAuthenticated: (state) => !!state.token,
-    token: (state) => state.token,
+    isAuthenticated: (state) => state.isAuthenticated,
   },
 });
 

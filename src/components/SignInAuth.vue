@@ -5,14 +5,14 @@
         <div class="card">
           <div class="card-body">
             <h1 class="card-title mb-4">Sign In</h1>
-            <form @submit.prevent="login">
+            <form @submit.prevent="handleSubmit">
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input id="email" v-model="email" type="email" class="form-control" required>
+                <input id="email" v-model="credentials.email" type="email" class="form-control" required>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input id="password" v-model="password" type="password" class="form-control" required>
+                <input id="password" v-model="credentials.password" type="password" class="form-control" required>
               </div>
               <button type="submit" class="btn btn-primary">Login</button>
             </form>
@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapMutations } from 'vuex';
+import { mapActions, mapMutations } from 'vuex';
 import AuthService from '../services/auth.service'
 import { useRouter } from 'vue-router';
 
@@ -35,42 +35,18 @@ import { useRouter } from 'vue-router';
 export default defineComponent({
   name: 'SignIn',
   data() {
-    
     return {
-      email: '',
-      password: '',
+      credentials: {
+        email: '',
+        password: ''
+      }
     };
   },
   methods: {
-    ...mapMutations(['setToken']),
-    async login() {
-      console.log('login')
-      try {
-        const response = await AuthService.login({ email: this.email, password: this.password })
-        console.log(response)
-        if (response)
-        {
-          this.setToken(response)
-          this.$router.push('/galleryList')
-        }
-      } catch (error) {
-        console.error(error)
-      }
-
-      
-      // const response = await http.post('/auth/signin', {
-      //   email: this.email,
-      //   password: this.password,
-      // });
-      // console.log(response)
-      // const data = await response.json();
-      // if (response.ok) {
-      //   this.setToken(data.token);
-      //   useRouter().push('/');
-      // } else {
-      //   alert(data.message);
-      // }
-    },
-  },
+    ...mapActions(['login']),
+    handleSubmit() {
+      this.login(this.credentials);
+    }
+  }
 });
 </script>

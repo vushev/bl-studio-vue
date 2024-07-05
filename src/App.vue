@@ -6,11 +6,15 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import HeaderLayout from './Layout/HeaderLayout.vue';
+import verifyToken from './services/verify.auth';
 
 export default defineComponent({
   name: 'App',
   components: {
     HeaderLayout,
+  },
+  created() {
+    verifyToken();
   },
 });
 </script>

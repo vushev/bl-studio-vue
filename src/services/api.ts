@@ -3,6 +3,7 @@ import axios from "axios";
 
 const http = axios.create({
   baseURL: process.env.VUE_APP_API_ROOT,
+  withCredentials: true,
   headers: {
     "Content-Type": "application/json",
     "Referrer-Policy": "strict-origin-when-cross-origin",
