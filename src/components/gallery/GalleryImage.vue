@@ -11,7 +11,7 @@
           <span v-else class="badge bg-secondary">Неизвестен статус</span>
         </p>
 
-        <div class="mb-3" v-if="!localStatus">
+        <div class="mb-3" v-if="!localStatus || localStatus === 'needs_review'">
           <label for="status" class="form-label">Статус</label>
           <select v-model="localStatus" @change="updateStatus" class="form-select">
             <option value="">Избери статус</option>
