@@ -20,7 +20,7 @@
             <option value="needs_work">Изисква работа</option>
           </select>
         </div>
-        {{ localStatus }}
+
         <div v-if="localStatus === 'needs_work' && !showComments" class="mb-3">
           <label for="comments" class="form-label">Коментари</label>
           <textarea v-model="comments" class="form-control" rows="3"></textarea>
