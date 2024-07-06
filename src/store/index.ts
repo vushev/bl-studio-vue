@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import http from "../services/api";
+import router from "../router";
 
 const store = createStore({
   state: {
@@ -17,6 +18,7 @@ const store = createStore({
         const response = await http.post("/auth/signin", credentials);
         if (response.status === 200) {
           commit("setAuthenticated", true);
+          router.push("/galleryList");
         }
       } catch (error) {
         console.error("Failed to login", error);
