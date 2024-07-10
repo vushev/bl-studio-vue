@@ -5,9 +5,9 @@
       <div class="card-body">
         <h5 class="card-title">{{ image.name }} <small class="text-muted">version: {{ image.version }}</small></h5>
         <p class="card-text">
-          <span v-if="image.status === 'approved'" class="badge bg-success">Одобрена</span>
-          <span v-else-if="image.status === 'rejected'" class="badge bg-danger">Отказана</span>
-          <span v-else-if="image.status === 'needs_work'" class="badge bg-warning text-dark">Изисква работа</span>
+          <span v-if="localStatus === 'approved'" class="badge bg-success">Одобрена</span>
+          <span v-else-if="localStatus === 'rejected'" class="badge bg-danger">Отказана</span>
+          <span v-else-if="localStatus === 'needs_work'" class="badge bg-warning text-dark">Изисква работа</span>
           <span v-else class="badge bg-secondary">Неизвестен статус</span>
         </p>
 

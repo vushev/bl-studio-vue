@@ -39,8 +39,8 @@ http.interceptors.response.use(
     if (err?.response) {
       if (err.response.status === 403 && err.response.data) {
         return Promise.reject(err.response.data);
-      } else if ([401, 500].includes(err.response.status)) {
-        if (err.response.data?.message === "jwt expired") {
+      } else if ([401].includes(err.response.status)) {
+        if ((err.response.data?.message === "jwt expired" || store.state.isAuthenticated) && err.config.url !== "/auth/verify-auth") {
           store.dispatch("logout");
           window.location.href = "/login";
           return Promise.reject(err.response.data);

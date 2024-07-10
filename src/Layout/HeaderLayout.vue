@@ -4,7 +4,7 @@
       <div class="header__navbar">
         <div class="header__logo">
           <h1>
-            <img src="img/logo.png" alt="logo">
+            <router-link to="/"><img src="img/logo.png" alt="logo"></router-link>
           </h1>
         </div>
         <nav class="header__nav">
@@ -24,7 +24,7 @@
         </template>
         <template v-else>
           <!-- <router-link to="/profile" class="btn btn--primary">Profile</router-link> -->
-          <button @click="logout">Logout</button>
+          <button id="signout" @click="logout">Logout</button>
         </template>
       </div>
     </div>

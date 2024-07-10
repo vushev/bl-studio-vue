@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1>{{albums.name}}</h1>
+    <h1>{{ albums.name }}</h1>
     <div class="row">
-        <GalleryImage v-for="image in images" :key="image.id" :image="image" @open-modal="showModal" />
-      </div>
-  
+      <GalleryImage v-for="image in images" :key="image.id" :image="image" @open-modal="showModal" />
+    </div>
+
     <!-- Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
@@ -41,7 +41,7 @@ export default defineComponent({
     GalleryImage,
   },
   setup() {
-    const images = ref<{  id: number, name: string, path: string, version: number, status: string }[]>([]);
+    const images = ref<{ id: number, name: string, path: string, version: number, status: string }[]>([]);
     const albums = ref<{ name: string }>({
       name: '',
     });
@@ -86,7 +86,7 @@ export default defineComponent({
 
 <style scoped>
 .galleryItem {
-    display: inline-block;
-    margin: 10px;
+  display: inline-block;
+  margin: 10px;
 }
 </style>
