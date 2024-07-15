@@ -6,7 +6,6 @@ const http = axios.create({
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
-    "Referrer-Policy": "strict-origin-when-cross-origin",
   },
 });
 
@@ -14,16 +13,10 @@ http.interceptors.request.use(
   async (req) => {
     try {
       // console.log('Sending request:', req);
-      const token = localStorage.getItem("token");
-      if (token) {
-        req.headers["Authorization"] = `Bearer ${token}`;
-        console.log("Sending request with token:", token);
-      }
     } catch (err) {
       console.error("Request Interceptor Failed", err);
     }
-    //TODO add token
-
+    
     return req;
   },
   (err) => {
@@ -40,7 +33,11 @@ http.interceptors.response.use(
       if (err.response.status === 403 && err.response.data) {
         return Promise.reject(err.response.data);
       } else if ([401].includes(err.response.status)) {
-        if ((err.response.data?.message === "jwt expired" || store.state.isAuthenticated) && err.config.url !== "/auth/verify-auth") {
+        if (
+          (err.response.data?.message === "jwt expired" ||
+            store.state.isAuthenticated) &&
+          err.config.url !== "/auth/verify-auth"
+        ) {
           store.dispatch("logout");
           window.location.href = "/login";
           return Promise.reject(err.response.data);
